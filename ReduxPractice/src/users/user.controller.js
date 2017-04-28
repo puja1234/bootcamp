@@ -22,7 +22,14 @@ exports.getSpecificUser=(req,res,next)=>{
 exports.deleteUser=(req,res,next)=>{
     console.log("deleting user",req.body.userName);
     var userData = req.body.userName;
-
+    console.log(userData)
     UserService.deleteUser(userData,res);
+}
+
+exports.updateUser=(req,res,next)=>{
+    console.log("updating user",req.body.userName);
+    var userData = req.body;
+    console.log(userData)
+    UserService.updateUser(userData,res);
 }
 

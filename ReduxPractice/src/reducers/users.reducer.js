@@ -70,7 +70,7 @@ export const userFetch =(state=initialState,action) => {
             }
         }
         case UPDATE_USER_SUCCESS:{
-            const usersNew=state.users.concat(action.user)
+            const usersNew=action.user
             return{
                 ...state,
                 loading : false,

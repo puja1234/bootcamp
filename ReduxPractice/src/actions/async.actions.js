@@ -50,7 +50,7 @@ export const asyncActionDelete = (name) => {
     }
 };
 
-export const asyncActionUpdate = (name) => {
+export const asyncActionUpdate = (newData) => {
     return (dispatch) => { // this is store's dispatch method
         dispatch(apiCallUpdateStarted()); // call started
         fetch('http://localhost:3200/User', {
@@ -59,10 +59,7 @@ export const asyncActionUpdate = (name) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                userName: name
-
-            }),
+            body: JSON.stringify(newData),
         })
             .then(response => response.json())
             .then(data => {

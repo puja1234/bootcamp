@@ -1,11 +1,14 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import {asyncActionDelete,asyncActionUpdate} from '../actions'
-
+import UpdateComponent from './UpdateComponent'
 
 class UserInfo extends React.Component{
    constructor(props){
-       super(props)
+       super(props);
+       this.state={
+
+       }
    }
    onClickHandler = () =>{
        console.log(this.props)
@@ -22,25 +25,32 @@ class UserInfo extends React.Component{
    }
     render(){
         const list = this.props.users;
-
+        var paramname=this.props.match.params.name;
         return(
             <div>
                 <table>
-                    <tr>
-                        <td>
-                            <ul>{
-                                list.map((user)=>{
-                                    var username =user.userName;
-                                    var paramname=this.props.match.params.name;
-                                    {if(username==paramname){
-                                        return (<p key={user._id}>{user.email}</p>)
-                                    }}
-                                })
-                            }</ul>
-                        </td>
-                        <td><button onClick={this.onClickHandler.bind(this)}>Delete</button></td>
-                 
-                    </tr>
+                    {
+                        this.state.edit?
+                            <UpdateComponent  paramName = {paramname} props={this.props}/>
+                            :
+                            <tr>
+                                <td>
+                                    <ul>{
+                                        list.map((user)=>{
+                                            var username =user.userName;
+
+                                            {if(username==paramname){
+                                                return (<p key={user._id}>{user.email}</p>)
+                                            }}
+                                        })
+                                    }</ul>
+                                </td>
+                                <td><button onClick={this.onClickHandler.bind(this)}>Delete</button></td>
+                                <td><button onClick={(e)=>{this.setState({edit:!this.state.edit})}}> Edit </button></td>
+
+                            </tr>
+                    }
+
                 </table>
             </div>
         )

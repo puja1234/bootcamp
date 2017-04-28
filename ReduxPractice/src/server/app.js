@@ -21,6 +21,8 @@ app.get('/User', controller.getUser);
 
 app.delete('/User',controller.deleteUser);
 
+app.put('/User',controller.updateUser);
+
 app.listen(3200,function () {
     console.log("server running at 3200 port");
 })

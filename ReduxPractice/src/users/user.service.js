@@ -46,7 +46,7 @@ exports.getSpecificUser = (userData,res) => {
 
 exports.deleteUser= (userData,res) => {
 
-
+        console.log(userData,'delete')
         User.deleteOne({"userName":userData},(err, data) => {
             if (err) {
                 res.send(err);
@@ -63,4 +63,25 @@ exports.deleteUser= (userData,res) => {
         })
 }
 
+
+exports.updateUser = (userData,res) => {  //update user
+
+    console.log(userData,'-------update user')
+// res.status(400).send("error");
+        User.update({"userName":userData.userName}, {email:userData.email},{upsert:true},(err, data) => {
+            if (err) {
+                res.status(400).send({message: "Error occured", error: err});
+            } else {
+                console.log('inside update',data);
+                User.find((err,updatedData) => {
+                    if(err){
+                        res.status(400).send({message: "Error occured", error: err});
+                    }else{
+
+                        res.send(updatedData);
+                    }
+                })
+            }
+        })
+}
 
